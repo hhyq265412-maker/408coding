@@ -276,3 +276,53 @@ int find_element(LinkList L,int k){
 
 /****************真题2012*******************************/
 
+void length (Linklist L){
+    int i=0;
+    while(L->next!=NULL){
+        i++;
+    }
+    return i;
+}
+LinkNode *  find_same_place(LinkList L1,LinkList L2){
+    int length1=length(L1);
+    int length2= length(L2);
+    int same_number=0;
+    LinkNode P1=L1;
+    LinkNode P2=L2;
+    //使得他们尾部长度一致
+    if(L1>=L2){
+        int more=L1-L2;
+        for(int i=0;i<more;i++){
+            P1=P1->next;
+        }
+    }else{//
+        int more =L2-L1;
+        for(int i=0;i<more ;i++){
+            P2=P2->next;
+        }
+    }
+    while(P2->next!=NULL){
+            P2=P2->next;
+            P1=P1->next;
+            if(P2->data==P1->data){
+                same_number++;
+            }else{
+                same_number=0;
+            }
+    }
+    //找到相同长度;
+    LinkNode* real=L1;
+    int time= length1-same_number+1;
+    for(int i=0;i<time;i++){
+        real=real->next;
+    }
+    return real;
+}
+
+//基本思想：首先计算这个两个链表的长度，再通过遍历长的队列，使得长队列和短队列长度一致。再同时遍历两个队列如果元素相等就number++，如果不同那就number置0，直到遍历到最后
+//我们得到相同元素的长度我们再从头遍历找到那个目标位置。
+//时间复杂度O（L1+L2）
+
+
+
+/********************真题2015********************************/
