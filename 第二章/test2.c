@@ -326,3 +326,35 @@ LinkNode *  find_same_place(LinkList L1,LinkList L2){
 
 
 /********************真题2015********************************/
+int abs(int A){
+    if (a<0)
+        return -a;
+    else
+        return a;
+}
+void delete_same_abs_element(LinkList L,int m,int n){
+    int arr1[n]={0};
+    LinkNode * pre = L;
+    LinkNode * p = L->link;
+    while(p!=NULL){
+        int element_abs=abs(p->data);
+        if(arr1[element_abs]==0){
+            arr1[element_abs]=1;
+            p=p->link;
+            pre=pre->link;
+        }else{
+            pre->link=p->link;
+            p=pre->link;
+        }
+    }
+}
+
+//基本思想:首先准备一个长度和n数字限制大小一致的数组（初始全为0）。紧接着遍历整个数组遇到数字后在这个数组里标记他出没出现过（0为未出现，1为出现）,若出现则删除，若未出现则置1。
+
+typedef struct LinkNode{
+    int data;
+    LinkNode* link;
+}LinkNode,*Linklist;
+//时间复杂度O（m）空间复杂度O（n）
+
+/**************************************************************/
