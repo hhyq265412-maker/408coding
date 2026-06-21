@@ -204,19 +204,26 @@ bool check_circle(LinkList L){（
 
 int  Find_man_RelElmSUb(LinkList L,int n){
     LinkNode * rear_list=L;
+    LinkNode * rear=L;
     for (int i=0;i<n/2;i++){
         rear_list=rear_list->next;
-        if (i==n/2-2){
-            LinkNode * rear =rear_list;
-        }
+        // if (i==n/2-2){
+        //     //LinkNode * rear =rear_list;
+        //     rear = rear_list;
+        // }
+    }
+    for (int i=0;i<n/2-1;i++){
+        rear=rear-next;
     }
     rear->next=NULL;
+    //开始逆置
     for (int j=0;j<n/2;j++){
         LinkNode * insert=rear_list;
         rear_list=rear_list->next;
         insert->next=rear->next;
         rear->next=insert;
     }
+    rear=rear->next;
     int max=L->data+rear->data;
     LinkNode * pre =L;
     for(int m=0;m<n/2-1;m++){
@@ -238,3 +245,34 @@ int  Find_man_RelElmSUb(LinkList L,int n){
 //主要思想：1.首先我们我们将这个单链表分成两半，将后链表进行反转
 //        2.在分别从前半链表和后半链表分别遍历此链表，一次将对应元素加起来即可
 //        3.在遍历的同时进行这个大小比较即可。
+
+
+
+
+//**************真题2009*************************/
+
+int find_element(LinkList L,int k){
+    LinkNode * P=L;
+    int length=0;
+    //遍历看链表长度
+    while(P->next!=NULL){
+        length++;
+    }
+
+    if(length<k){
+        return 0;
+    }else{
+        int time=length-k+1;//目标节点正数位置
+        LinkNode*real=L;
+        for(int i=0;i<time;i++){
+            real=real->next;
+        }
+        printf("%d",real->data)
+    }
+}
+//（1）：基本思想：首先遍历整个链表查看链表长度，其次再根据导数数字倒推正数位置，再次遍历找到该目标元素
+//(2):首先用for循环，再用减法计算出第二次遍历所要移动次数，在用for循环遍历一次找到目标元素。
+
+
+/****************真题2012*******************************/
+
