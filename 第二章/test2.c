@@ -1,0 +1,240 @@
+void separt(Linklist L ,LinkList A,LinkList B){
+    LinkNode* pre = L->next;
+    B=(LinkNode*)malloc(sizeof(LinkNode));
+    B->next=NULL;
+    while(pre->next!=NULL){
+        LinkNode*p=pre->next;
+        pre->next=p->next;
+        p-next=B->next;
+        B-next=p;
+        pre=pre-next;
+    }
+    A=L;
+}
+
+void DeleteSame(LinkList L){
+    if(L->next==NULL||L->next->next==NULL) return ;
+    LinkNode* pre=L->next;
+    LinkNode* p = pre->next;
+    while(pre->next!=NULL){
+        if(pre->data==p->data){
+            LinkNode* del = p;
+            p=p->next;
+            pre->next=p;
+            free(del);
+        }
+        else{
+            pre=p;
+            p=p->next;
+        }
+    }
+}
+
+
+bool Judege(LinkList A,LinkList B){
+    LinkNode* index_start = A->next;
+    // LinkNode* judge_index = B->next;
+    while(index_start!=NULL){
+        LinkNode *judge_index_B = B->next;
+        LinkNode *judge_index_A = index_start;
+        while(judge_index_B!=NULL&&judge_index_A!=NULL){
+            if(judge_index_A->data==judge_index_B->data){
+                judge_index_A=judge_index_A->next;
+                judge_index_B=judge_index_B->next;
+            }else{
+                break;
+            }
+            if(judge_index_B==NULL) return true;
+        }
+        index_start=index_start->next;
+    }
+    return false;
+}
+ 
+
+
+
+
+bool JudegeSymmetry(LinkList L){
+    LinkNode*p =L;
+    LinkNode*q =L;
+    while(p!=q||p->next!=q->next){
+        if(p->data==q->data){
+            p=p->next;
+            q=q->prior;
+        }
+        else return false;
+    }
+    return true;
+}
+
+void Connect (LinkList h1 ,LinkList h2){
+    LinkNode*rear_h1,rear_h2,p=h1;
+    while(p->next!=h1){
+        p=p->next;
+    }
+    rear_h1=p;
+    p=h2;
+    while(p->next!=h2){
+        p=p->next;
+    }
+    rear_h2 = p;
+    rear_h1-next=h2-next;
+    rear_h2-next=h1;
+}  
+
+
+
+LinkNode * Locate(LinkList L,ElemType x){
+    LinkNode*p=L->next;
+    while(p!=NULL&&p->data!=x){//p->data!=x&&p!=NULL这么写是错的，交换次序
+        p=p->next;
+    }               //找到这个x值指针
+    if(p==NULL) return NULL;
+    p->freq++;
+    //删除该节点
+    if(p->next==NULL){//处理此节点再尾端的情况
+        p->pre->next==NULL;
+    }
+    else{
+        p->next->pre=p->pre;
+        p->pre->next=p->next;
+    }
+    LinkNode * N=L->next;
+    while(N->next!=NULL){
+        if(N->freq>p->freq){
+            N=N->next;
+        }
+        else break;
+    }//找到此节点的前置节点
+    if(N->next!=NULL){
+        p->next=N->next;
+        p->pre=N;
+        N->next->pre=p;
+        N-next=p;
+        return p;
+    }
+    N->next=p;
+    p->pre=N;
+    p->next=NULL;
+    return p;
+}j
+
+Locate(LinkList L,ElemType x){
+    LinkNode* prar=L;
+    while(prar->next!=NULL&&prar->next->data!=x){
+        prar=prar->next;
+    }
+    if(prar->next==NULL)
+    return NULL;
+
+
+    //找到这个节点
+    LinkNode* p=prar->next;
+    prar->next=p->next;
+    if(p->next!=NULL)
+        p->next->pre=prar;
+    //摘除节点
+    p-freq++;
+
+    LinkNode* insert=L;
+    while(insert->next!=NULL&&insert->next->freq>p-freq){
+        insert=insert->next;
+    }
+    //找到插入位置
+    p->next=insert->next;
+    p->pre=insert;
+    if(insert->next!=NULL)
+        insert->next->pre=p;
+    insert->next=p;
+    
+    return p;
+}
+
+void (LinkList L,int n,int k){
+    if(n<=k){
+        return ;
+    }
+    LinkNode* B=L;
+    LinkNode*B_pre=L;
+    for(int i=0;i<n-k;i++){
+        B=B->next;
+        if(i>=1){
+            B_pre=B_pre->next;
+        }
+    }
+    B_pre->next=NULL;
+    //将这个要移动子链表的那个抽出来
+    for(int i=0;i<k;i++){
+        LinkNode* insert=B;
+        B=B->next;
+        insert->next=L；
+        L=insert;
+    }
+    //头插入
+    return
+}
+//基本思想：把整个完整的数据链，拆成两半，一个长度为k，另一个为n-k
+//然后将长度为k的一次头插入这个n-k的链表中；
+//时间复杂度O（n）
+
+
+bool check_circle(LinkList L){（
+    LinkNode *  quick =L;
+    LinkNode *  slow = L;
+    while(quick && slow){
+        if(quick->next!=NULL&& quick->next->next!=NULL)
+            quick=quick->next->next;
+        else
+            break;
+
+        slow=slow->next;
+        //slow走的慢所以就可以直接移动不用判断
+
+        if(slow==quick){
+            return true;
+        }
+        //这里是这个慢指针追上了这个快指针。
+    }
+    
+    //quick 或者 slow 有人到了末尾
+    return false;
+}
+
+
+int  Find_man_RelElmSUb(LinkList L,int n){
+    LinkNode * rear_list=L;
+    for (int i=0;i<n/2;i++){
+        rear_list=rear_list->next;
+        if (i==n/2-2){
+            LinkNode * rear =rear_list;
+        }
+    }
+    rear->next=NULL;
+    for (int j=0;j<n/2;j++){
+        LinkNode * insert=rear_list;
+        rear_list=rear_list->next;
+        insert->next=rear->next;
+        rear->next=insert;
+    }
+    int max=L->data+rear->data;
+    LinkNode * pre =L;
+    for(int m=0;m<n/2-1;m++){
+        pre=pre->next;
+        rear= rear->next;
+        int current = rear->data+pre->data;
+        if(current >max){
+            max= current;
+        }
+    }
+    return max; 
+}
+//首先我们设立两个指正快指针和慢指针，快一次走两步，慢一次走一步。
+//我们不停走，如果快指针碰到了NULL则无环，如果慢指针和快指针一样，那就有环
+
+//时间复杂度O（n）,空间复杂度O（1）.
+
+
+//主要思想：1.首先我们我们将这个单链表分成两半，将后链表进行反转
+//        2.在分别从前半链表和后半链表分别遍历此链表，一次将对应元素加起来即可
+//        3.在遍历的同时进行这个大小比较即可。
