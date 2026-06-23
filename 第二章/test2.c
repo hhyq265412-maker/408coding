@@ -374,43 +374,38 @@ typedef struct node{
 
 //主要思想：将这个链表分成两部分一前一后，然后我们将后面的链表逆置，然后一次插入这个第一个链表当中
 
-void reverse (*NODE L){
-    *NODE current = L->next;
+NODE * reverse (NODE * L){
+    NODE * current = L->next;
     L->next=NULL;
     while(current!=NULL){
-        * NODE insert = current;
+        NODE * insert = current;
+        current=current->next;
         insert->next=L;
         L=insert;
-        current=current->next;
     }
     return L;
 }
-void take_special_list (* NODE L){
-    *NODE p1=L;
-    *NODE p2 = L;
+void take_special_list ( NODE  * L){
+    NODE * p1=L;
+    NODE * p2 = L;
     while(p2->next==NULL){
         p1=p1->next;
         p2=p2->next;
         if(p2->next!=NULL)
             p2=p2->next; //p2走两步
     }
-    * NODE pre = L;
-    while(pre->next!=p1){
-        pre=pre->next;
-    }
-    pre->next=NULL;//断开前后连接
+    
+    NODE * reverse_head=p1->next;
+    p1->next=NULL;
 
-
-    reverse(p1);
-    * NODE p=L->next;
+    p1=reverse(reverse_head);
+    NODE * p=L->next;
     while(p!=NULL){
-        *current = p1;
+        NODE * current = p1;
         p1=p1->next;
         current->next=p->next;
         p=p->next;
-        if(p->next!=NULL){//处理特殊情况，奇数队列，后队列会比前长一
-            p=p-next;
-        }
+        p=p-next;
     }
     
 }
