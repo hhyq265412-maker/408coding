@@ -257,6 +257,7 @@ int find_element(LinkList L,int k){
     //遍历看链表长度
     while(P->next!=NULL){
         length++;
+        P=P->next;
     }
 
     if(length<k){
@@ -267,8 +268,9 @@ int find_element(LinkList L,int k){
         for(int i=0;i<time;i++){
             real=real->next;
         }
-        printf("%d",real->data)
+        printf("%d",real->data);
     }
+    return 1;
 }
 //（1）：基本思想：首先遍历整个链表查看链表长度，其次再根据导数数字倒推正数位置，再次遍历找到该目标元素
 //(2):首先用for循环，再用减法计算出第二次遍历所要移动次数，在用for循环遍历一次找到目标元素。
@@ -276,10 +278,11 @@ int find_element(LinkList L,int k){
 
 /****************真题2012*******************************/
 
-void length (Linklist L){
+int length (LinkList L){
     int i=0;
     while(L->next!=NULL){
         i++;
+        L=L->next;
     }
     return i;
 }
@@ -287,16 +290,16 @@ LinkNode *  find_same_place(LinkList L1,LinkList L2){
     int length1=length(L1);
     int length2= length(L2);
     int same_number=0;
-    LinkNode P1=L1;
-    LinkNode P2=L2;
+    LinkNode * P1=L1;
+    LinkNode * P2=L2;
     //使得他们尾部长度一致
-    if(L1>=L2){
-        int more=L1-L2;
+    if(length1>=length2){
+        int more=length1-length2;
         for(int i=0;i<more;i++){
             P1=P1->next;
         }
     }else{//
-        int more =L2-L1;
+        int more =length2-length1;
         for(int i=0;i<more ;i++){
             P2=P2->next;
         }
@@ -333,7 +336,8 @@ int abs(int A){
         return a;
 }
 void delete_same_abs_element(LinkList L,int m,int n){
-    int arr1[n]={0};
+    //int arr1[n]={0};
+    int arr1*=(int *)malloc((n+1)*sizeof(int));
     LinkNode * pre = L;
     LinkNode * p = L->link;
     while(p!=NULL){
@@ -347,6 +351,7 @@ void delete_same_abs_element(LinkList L,int m,int n){
             p=pre->link;
         }
     }
+    free(arr1);
 }
 
 //基本思想:首先准备一个长度和n数字限制大小一致的数组（初始全为0）。紧接着遍历整个数组遇到数字后在这个数组里标记他出没出现过（0为未出现，1为出现）,若出现则删除，若未出现则置1。
@@ -358,3 +363,54 @@ typedef struct LinkNode{
 //时间复杂度O（m）空间复杂度O（n）
 
 /**************************************************************/
+
+
+
+/*************************2019真题**************************************/
+typedef struct node{
+    int data;
+    struct node* next;
+}NODE;
+
+//主要思想：将这个链表分成两部分一前一后，然后我们将后面的链表逆置，然后一次插入这个第一个链表当中
+
+void reverse (*NODE L){
+    *NODE current = L->next;
+    L->next=NULL;
+    while(current!=NULL){
+        * NODE insert = current;
+        insert->next=L;
+        L=insert;
+        current=current->next;
+    }
+    return L;
+}
+void take_special_list (* NODE L){
+    *NODE p1=L;
+    *NODE p2 = L;
+    while(p2->next==NULL){
+        p1=p1->next;
+        p2=p2->next;
+        if(p2->next!=NULL)
+            p2=p2->next; //p2走两步
+    }
+    * NODE pre = L;
+    while(pre->next!=p1){
+        pre=pre->next;
+    }
+    pre->next=NULL;//断开前后连接
+
+
+    reverse(p1);
+    * NODE p=L->next;
+    while(p!=NULL){
+        *current = p1;
+        p1=p1->next;
+        current->next=p->next;
+        p=p->next;
+        if(p->next!=NULL){//处理特殊情况，奇数队列，后队列会比前长一
+            p=p-next;
+        }
+    }
+    
+}
