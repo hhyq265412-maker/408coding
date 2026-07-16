@@ -29,3 +29,12 @@ void Convert (ALGraph &L,int arcs[M][N] ){
 }
 
 
+
+/******************2021年********************************/
+typedef struct {                          // 图的定义
+    int numVertices, numEdges;            // 图中实际的顶点数和边数
+    char VerticesList[MAXV];              // 顶点表。MAXV 为已定义常量
+    int Edge[MAXV][MAXV];                 // 邻接矩阵
+} MGraph;
+
+
