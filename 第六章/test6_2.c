@@ -37,4 +37,20 @@ typedef struct {                          // 图的定义
     int Edge[MAXV][MAXV];                 // 邻接矩阵
 } MGraph;
 
-
+int IsExistEL(MGraph G){
+    int answer=0 //度数为积数的节点数；
+    for(int i=0;i<G.numVertices;i++){
+        int current_degree=0;
+        for(int j=0;j<G.numVertices;j++){
+            current_degree+=G.Edge[i][j];//计算每个节点的度
+        }
+        if (current_degree%2==1)
+            answer++;
+    }
+    if(answer<=2 && answer%2==0)
+        return 1;
+    return 0;
+}
+//（1）：我们直接遍历数组，我们将这个矩阵每一行的有效数字进行相加，就可以得到这个节点的度
+//然后在进行比较就行了。
+//时间复杂度O（n2）空间复杂度O（1）；
