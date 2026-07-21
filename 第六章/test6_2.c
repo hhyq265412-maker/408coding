@@ -80,3 +80,8 @@ int printVertices(MGraph G){
     }
     return answer;
 }
+/*
+(2)思想：我们直接遍历这n个节点 我们计算出我们再遍历计算出入度出度，再比较得出是否是k点再输出
+    
+
+*/
