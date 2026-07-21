@@ -64,3 +64,19 @@ typedef struct {                          // 图的定义
     char VerticesList[MAXV];              // 顶点表。MAXV 为已定义常量
     int Edge[MAXV][MAXV];                 // 邻接矩阵
 } MGraph;
+int printVertices(MGraph G){
+    int answer=0;
+    for(int i=0;i<G.numVertices;i++){
+        int in_degree=0;
+        int out_degree=0;
+        for (int j=0;j<G.numVertices;i++){
+            out_degree+=G.Edge[i][j];
+            in_degree+=G.Edge[j][i];
+        }
+        if(out_degree>in_degree){
+            printf("%c ",VerticesList[i]);
+            answer++;
+        }
+    }
+    return answer;
+}
