@@ -54,3 +54,13 @@ int IsExistEL(MGraph G){
 //（1）：我们直接遍历数组，我们将这个矩阵每一行的有效数字进行相加，就可以得到这个节点的度
 //然后在进行比较就行了。
 //时间复杂度O（n2）空间复杂度O（1）；
+
+
+
+
+/***************************2023真题*******************************/
+typedef struct {                          // 图的定义
+    int numVertices, numEdges;            // 图中实际的顶点数和边数
+    char VerticesList[MAXV];              // 顶点表。MAXV 为已定义常量
+    int Edge[MAXV][MAXV];                 // 邻接矩阵
+} MGraph;
