@@ -74,7 +74,7 @@ int printVertices(MGraph G){
             in_degree+=G.Edge[j][i];
         }
         if(out_degree>in_degree){
-            printf("%c ",VerticesList[i]);
+            printf("%c ",G.VerticesList[i]);
             answer++;
         }
     }
