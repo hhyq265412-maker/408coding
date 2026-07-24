@@ -96,3 +96,5 @@ bool Judge_tree(BiTree T){
     }
     return true;
 }
+
+/************************** */
