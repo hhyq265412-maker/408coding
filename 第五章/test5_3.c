@@ -138,4 +138,45 @@ void change_lr(BiTree &T){
     T->lchild=T->rchild;
     T->rchild=current_Tree;
 }
-int 
+
+
+/***************07先序遍历第k个节点的值************************************ */
+
+int search(BiTree T,int k,int current){
+    if(T==NULL){
+        return;
+    }
+    if(++current==k){
+        return T->data;
+    }
+    search(T->lchild,k,current);
+    search(T->rchild,k,current);
+}
+
+/*****************08 删除元素值为x的所有子树**************************************** */
+void delete(BiTree T){
+    if(T==NULL){
+        return ;
+    }
+    delete(T->lchild);
+    delete(T->rchild);
+    free(T);
+}//我们要删除他的后续节点就必须递归解放掉所有的节点
+
+void Del_Element(BiTree T,int data){
+    if(T->data==data){
+        
+    }
+    BiTree Q[ManSize];
+    int front=0;
+    int rear=0;
+    Q[rear++]=T;
+    while(T!=NULL||rear!=front){
+        if(T!=NULL){
+            Q[rear++]=T->lchild;
+            T=T->lchild;
+        }else{
+            
+        }
+    }
+}
