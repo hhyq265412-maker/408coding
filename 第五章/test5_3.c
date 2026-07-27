@@ -137,4 +137,5 @@ void change_lr(BiTree &T){
     BiTree current_Tree=T->lchild;
     T->lchild=T->rchild;
     T->rchild=current_Tree;
-}j
+}
+int 
