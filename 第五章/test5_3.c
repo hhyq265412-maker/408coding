@@ -97,4 +97,44 @@ bool Judge_tree(BiTree T){
     return true;
 }
 
-/************************** */
+/***************** 05 判断双儿子的节点个数**********/
+int two_branches(BiTree T) {
+    if (T == NULL) {
+        return 0;
+    }
+    BiTree Q[MaxSize];
+    int front = 0;
+    int rear = 0;
+    int answer = 0;
+    // 根节点入队
+    Q[rear++] = T;
+
+    while (front != rear) {
+        // 出队当前节点
+        BiTree p = Q[front++];
+        if (p->lchild != NULL && p->rchild != NULL) {
+            answer++;
+        }
+        if (p->lchild != NULL) {
+            Q[rear++] = p->lchild;
+        }
+        if (p->rchild != NULL) {
+            Q[rear++] = p->rchild;
+        }
+    }
+
+    return answer;
+}
+
+
+/***************06 交换左右子树*******************************/
+void change_lr(BiTree &T){
+    if(T==NULL){
+        return;
+    }
+    change_lr(T->lchild);
+    change_lr(T->rchild);
+    BiTree current_Tree=T->lchild;
+    T->lchild=T->rchild;
+    T->rchild=current_Tree;
+}
