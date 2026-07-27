@@ -168,25 +168,29 @@ void Del_Element(BiTree T,int data){
         delete(T);
         return;
     }
-    BiTree Q[ManSize];
+    BiTree Q[MaxSize];
     int front=0;
     int rear=0;
     Q[rear++]=T;
     while(T!=NULL||rear!=front){
         if(T!=NULL){
             if(T->lchild!=NULL&&T->lchild->data==data){
-                delete(T);
+                delete(T->lchild);
                 T->lchild=NULL;
             }else{
                 Q[rear++]=T->lchild;
+                T=T->lchild;
             }
         }else{
-            BiTree S =Q[--rear];
-            if(T->lchild!=NULL&&T->rchild-data==data){
+            T=Q[--rear];
+            if(T->rchild!=NULL&&T->rchild->data==data){
                 delete(T->rchild);
                 T->rchild=NULL
+                //注意下一行这个要记上
+                T=NULL
             }else{
-                Q[rear++]=T-.rchild;
+                Q[rear++]=T->rchild;
+                T=T-rchild;
             }
         }
     }
