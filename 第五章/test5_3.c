@@ -267,7 +267,8 @@ void first_visit(BiTree T){
     int front=0;
     int rear=0;
     BiTree p=T;
-    while(p!=NULL&&rear!=front){
+    //while(p!=NULL&&rear!=front){
+    while(p!=NULL || rear != front){
         if(p!=NULL){
             visit();
             Q[rear++]=p;
@@ -275,9 +276,10 @@ void first_visit(BiTree T){
         }else{
             //p=Q[rear-1];
             p=Q[--rear]
-            if(p->rchild!=NULL){
+            /*if(p->rchild!=NULL){//问题如果是rchild的是空我们会一直循环
                 p=p->rchild;
-            }
+            }*/
+            p=p->rchild;
         }
     }
 }
@@ -288,16 +290,18 @@ void Middle_visit(BiTree T){
     int front=0;
     int rear=0;
     BiTree p=T;
-    while(p!=NULL&&front!=rear){
+    //while(p!=NULL&&front!=rear){
+    while(p!=NULL || front !=rear){
         if(p!=NULL){
             Q[rear++]=p;
             p=p->rchild;
         }else{
             p=Q[--rear]
             visit();
-            if(p->rchild!=NULL){
+            /*if(p->rchild!=NULL){
                 p=p->rchild;
-            }
+            }*/
+            p=p->rchild;
         }
     }
 }
@@ -309,13 +313,15 @@ void last_visit(BiTree T){
     BiTree Q[MaxSize];
     BiTree p=T;
     Bitree r = NULL;
-    while(p!=NULL&&front!=rear){
+    //while(p!=NULL&&front!=rear){
+    while(p!=NULL || front!=rear){
         if(p!=NULL){
             Q[rear++]=p;
             p=p->lchild;
         }else{
             p=Q[rear-1];
-            if(p->rchild!=NULL&&p->lchild==r){
+            //if(p->rchild!=NULL&&p->lchild==r){
+            if(p->rchild!=NULL&&p->rchild!=r){
                 p=p->rchild;
             }else{
                 rear--;
