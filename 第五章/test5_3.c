@@ -141,18 +141,21 @@ void change_lr(BiTree &T){
 
 
 /***************07先序遍历第k个节点的值************************************ */
+int count = 0;     
+Elemtype ans;      
 
-int search(BiTree T,int k,int current){
-    if(T==NULL){
+void search(BiTree T, int k) {
+    if (T == NULL) return; 
+
+    count++;
+    if (count == k) {
+        ans = T->data; 
         return;
     }
-    if(++current==k){
-        return T->data;
-    }
-    search(T->lchild,k,current);
-    search(T->rchild,k,current);
-}
 
+    search(T->lchild, k); 
+    search(T->rchild, k); 
+}
 /*****************08 删除元素值为x的所有子树**************************************** */
 void delete(BiTree T){
     if(T==NULL){
@@ -193,6 +196,30 @@ void Del_Element(BiTree T,int data){
                 T=T-rchild;
             }
         }
+    }
+    return ;
+}
+void DeleteElemt(BiTree T,int data){
+    if (T->data==data){
+        delete(T);
+        return;
+    }
+    BiTree Q[MaxSize];
+    int font=0;
+    int rear=0;
+    Q[rear++]=T;
+    while(rear!=front){
+        BiTree cut=Q[font++];
+        if(cut->lchild->data==data){
+            delete(cut->lchild);
+            cut->lchild=NULL;
+        }else
+            Q[rear++]=cut->lchild;
+        if(cut->rchild->data==data){
+            delete(T->rchild);
+            cut->rchild=NULL;
+        }else
+            Q[rear++]=cut->rchild;
     }
     return ;
 }
