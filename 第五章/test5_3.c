@@ -210,16 +210,120 @@ void DeleteElemt(BiTree T,int data){
     Q[rear++]=T;
     while(rear!=front){
         BiTree cut=Q[font++];
-        if(cut->lchild->data==data){
-            delete(cut->lchild);
-            cut->lchild=NULL;
-        }else
-            Q[rear++]=cut->lchild;
-        if(cut->rchild->data==data){
-            delete(T->rchild);
-            cut->rchild=NULL;
-        }else
-            Q[rear++]=cut->rchild;
+        if(cut->lchild!=NULL){
+            if(cut->lchild->data==data){
+                delete(cut->lchild);
+                cut->lchild=NULL;
+            }else
+                Q[rear++]=cut->lchild;
+        }
+        if(cut->rchild!=NULL){
+            if(cut->rchild->data==data){
+                delete(cut->rchild);
+                cut->rchild=NULL;
+            }else
+                Q[rear++]=cut->rchild;
+        }
     }
     return ;
+}
+
+
+
+/***************09 找到x 并且打印所有祖先************************/
+/*核心思想就是我们后续访问再遇到x直接打印我们栈的内容*/
+void Ancestory(BiTree T,int x){
+    BiTree Q[ManSize];
+    int front=0;
+    int rear=0;
+    BiTree P=T;//我们当前访问的节点
+    BiTree R=NULL;//我们上一个节点用来判断拐弯的时机
+    //Q[rear++]=T;
+
+    while(rear!=front){
+        if(p!=NULL){
+            //Q[rear++]=p->lchild;
+            Q[rear++]=p;
+            p=p->lchild;
+        }else{
+            p=Q[rear-1];
+            if(p->rchild!=NULL&&p->lchild==r){
+                //Q[rear++]=p->rchild;
+                p=p->rchild;
+            }else{
+                rear--;
+                vist();
+                r=p;
+                p=NULL;
+            }
+        }
+    }
+}
+
+/******************非递归版遍历**********************/
+//先序
+void first_visit(BiTree T){
+    BiTree Q[MaxSize];
+    int front=0;
+    int rear=0;
+    BiTree p=T;
+    while(p!=NULL&&rear!=front){
+        if(p!=NULL){
+            visit();
+            Q[rear++]=p;
+            p=p->lchild;
+        }else{
+            //p=Q[rear-1];
+            p=Q[--rear]
+            if(p->rchild!=NULL){
+                p=p->rchild;
+            }
+        }
+    }
+}
+
+//中序
+void Middle_visit(BiTree T){
+    BiTree Q[MaxSize];
+    int front=0;
+    int rear=0;
+    BiTree p=T;
+    while(p!=NULL&&front!=rear){
+        if(p!=NULL){
+            Q[rear++]=p;
+            p=p->rchild;
+        }else{
+            p=Q[--rear]
+            visit();
+            if(p->rchild!=NULL){
+                p=p->rchild;
+            }
+        }
+    }
+}
+
+//后序
+void last_visit(BiTree T){
+    int front =0;
+    int rear=0;
+    BiTree Q[MaxSize];
+    BiTree p=T;
+    Bitree r = NULL;
+    while(p!=NULL&&front!=rear){
+        if(p!=NULL){
+            Q[rear++]=p;
+            p=p->lchild;
+        }else{
+            p=Q[rear-1];
+            if(p->rchild!=NULL&&p->lchild==r){
+                p=p->rchild;
+            }else{
+                rear--;
+                visit();
+                r=p;
+                p=NULL;//很重要我们此节点已经弹出来，我们要下一个节点
+                        //要置空直接找到下一个节点
+            }
+        }
+    }
 }
