@@ -415,9 +415,25 @@ int Width(Bitree T){
     int front=0;
     int rear=0;
     Q[rear++]=T;
-    int width;
-    int answer;
+    int width=1;
+    int answer=1;
     while(front!=rear){
-        
+        int current_width=0;
+        for(int i=0;i<width;i++){
+            p=Q[front++];
+            if(p->lchild!=NULL){
+                Q[rear++]=p->lchild;
+                current_width++;
+            }
+            if(p->rchild!=NULL){
+                Q[rear++]=p->rchild;
+                current_width++;
+            }
+        }
+        width=current_width;
+        if(width>answer){
+            answer=width
+        }
     }
+    return answer;
 }
