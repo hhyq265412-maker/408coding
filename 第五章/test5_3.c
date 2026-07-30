@@ -232,6 +232,36 @@ void DeleteElemt(BiTree T,int data){
 
 /***************09 找到x 并且打印所有祖先************************/
 /*核心思想就是我们后续访问再遇到x直接打印我们栈的内容*/
+void Ancestory (BiTree T ,int x){
+    BiTree Q[MaxSize];
+    int front=0;
+    int rear =0;
+    BiTree p=T;
+    BiTree r=NULL;
+
+    while(p!=NULL || font!=rear){ 
+        if(p!=NULL){
+            Q[rear++]=p;
+            p=p->lchild;
+        }else{
+            p=Q[rear-1];
+            if(p->rchild!=NULL && p->rchild!=r){
+                p=p->rchild;
+            }else{
+                rear--;
+                if(p->data==x){
+                    for(int i=front;i<rear;i++){
+                        printf("%d/n",Q[i]->data);
+                    }
+                }
+                r=p;
+                p=NULL;
+            }
+        }
+    }
+}
+
+//以下是第一遍写的
 void Ancestory(BiTree T,int x){
     BiTree Q[ManSize];
     int front=0;
@@ -333,3 +363,11 @@ void last_visit(BiTree T){
         }
     }
 }
+
+
+/****************10找到两个节点的公共祖先节点************************************ */
+typedef struct BiTree{
+    BiTree * LLINK;
+    BiTree * RLINK;
+    int INFO;
+}*BiTree;
