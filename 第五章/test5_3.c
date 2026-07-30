@@ -371,3 +371,53 @@ typedef struct BiTree{
     BiTree * RLINK;
     int INFO;
 }*BiTree;
+//主要思想找到这个p和这个q的这个两个祖先，再从后开始遍历找到公共节点再返回
+void ANCESTORY (BiTree ROOT,BiTree p,BiTree q,BiTree *r){
+    BiTree Q[2][ManSize];
+    BiTree p=ROOT;
+    BiTree r =NULL;
+    BiTree Object[2]={p,q};
+    int Front[2]={0,0};
+    int Rear[2]={0,0};
+
+    for (int i=0;i<2;i++){
+        p=ROOT;
+        r=NULL;
+        while(p!=NULL || Front[i]!=Rear[i]){
+            if(p!=NULL){
+                Q[i][Rear[i]++]=p;
+                p=p->LLINK;
+            }else{
+                p=Q[i][Rear[i]-1];
+                if(p->RLINK!=NULL && p->RLINK!=r){
+                    p=p->RLINK;
+                }else{
+                    Rear[i]--;
+                    if(p==Object[i]){
+                        break;
+                    }
+                    r=p;
+                    p=NULL;
+                }
+            }
+        }
+    }
+    int j=0;
+    while(j<Rear[0]&&j<Rear[1]&&Q[0][j]==Q[1][j]){
+        j++;
+    }
+    *(r)=Q[0][j-1];
+}
+
+/********************11 求这个二叉树的宽度******************************* */
+int Width(Bitree T){
+    BiTree Q[ManSize];
+    int front=0;
+    int rear=0;
+    Q[rear++]=T;
+    int width;
+    int answer;
+    while(front!=rear){
+        
+    }
+}
