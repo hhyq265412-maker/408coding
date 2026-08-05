@@ -437,3 +437,22 @@ int Width(Bitree T){
     }
     return answer;
 }
+
+/***********************12********************************************/
+
+
+
+/*************************2017真题********************************* */
+typedef struct node{
+    char data[10];
+    struct node *left,*right;
+}BTree;
+String True_answer(BTree * T){
+    if(T==NULL){
+        return "";
+    }
+    if(T->right==NULL&&T->left==NULL){
+        return T->data[0];
+    }
+    return "("+True_answer(T->left)+T->data[0]+True_answer(T->right)+")";
+} 
