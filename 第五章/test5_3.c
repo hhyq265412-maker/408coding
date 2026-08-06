@@ -439,7 +439,19 @@ int Width(Bitree T){
 }
 
 /***********************12********************************************/
+void change (int * pre,int pre_start,int * post ,int post_start,int length ){
+    if(length==0){
+        return;
+    }
+    post[post_start+length-1]=pre[pre_start];
+    if(length<=1){
+        return ;
+    }
+    sub_length=(length-1)/2;
+    change(pre,pre_start+1,post,post_start,sub_length);
+    change(pre,pre_start+1+sub_length,post,post_start+sub_length,sub_length);
 
+}
 
 
 /*************************2017真题********************************* */
