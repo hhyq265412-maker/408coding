@@ -452,6 +452,81 @@ void change (int * pre,int pre_start,int * post ,int post_start,int length ){
     change(pre,pre_start+1+sub_length,post,post_start+sub_length,sub_length);
 
 }
+/*************************13 通过递归 中序递归查找确定叶子节点连接起来**************************************** */
+BiTree  * Linkhead=NULL;
+BiTree * Linkrear=NULL;
+void Link_leaf(BiTree T){
+    if(T==NULL){
+        return ;
+    }
+    Link_leaf(T->lchild);
+    if(T->rchild==NULL&&T->rchild==NULL){
+        if(Linkhead==NULL){
+            Linkhead=T;
+            Linkrear=T;
+        }
+        else{
+            Linkrear->next=T;
+            Linkrear=T;
+        }
+
+    }
+    Link_leaf(T->rchild);
+}
+/*************************14 判断相似，利用递归判断************************************ */
+bool simmilar_BiTree(BiTree T1,BiTree T2){
+    if(T1==NULL&&T2==NULL){
+        return true;
+    }else if((!T1->lchild )&& (!T1->rchild)&&(!T2->rchild)&&(!T2->lchild)){
+        return true;
+    }else if(T1->lchild&&t1->lchild&&T2->rchild&&T2->rchild){
+        return simmilar_BiTree(T1->rchild,T2->rchild)&&simmilar_BiTree(T1->lchild,T2->lchild);
+    }else{
+        return false;
+    }
+}
+
+/************************2014真题***************************************** */
+//基本思想：我们通过这个层次 遍历我们的这个颗数我们的遍历层数乘上叶子节点的权值全部相加得到wpl
+typedef struct{
+    BiTree * left;
+    BiTree * right;
+    int weight;
+}BiTree;
+
+int WPL(Bitree *  T){
+    BiTree * Q[MaxSize];
+    int front =0;
+    int rear =0;
+    Q[rear++]=T;
+    int satge=1;  //标记层数
+    int wpl=0;    //最后的wpl
+    int count =1;
+    //利用层次遍历
+    while(front!=rear){
+        int current_account=0;//记录每层的个数
+        for(int i=0;i<count;i++){
+            Bitree current = Q[front++]
+            if(current->left!=NULL){
+                Q[rear++]=current->left;
+                current_account++;
+            }
+            if(current->right!=NULL){
+                Q[rear++]=current->right;
+                current_account++;
+            }
+            if(current->left==NULL&&current->right==NULL){
+                wpl+=(stage-1)*current->weight;//计算节点的路径权值
+            }
+        }
+        account=current_account;
+        satge++;
+    }
+    return wpl;
+}
+
+
+
 
 
 /*************************2017真题********************************* */
@@ -468,3 +543,8 @@ String True_answer(BTree * T){
     }
     return "("+True_answer(T->left)+T->data[0]+True_answer(T->right)+")";
 } 
+
+
+
+
+
