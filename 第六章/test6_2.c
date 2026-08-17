@@ -85,3 +85,56 @@ int printVertices(MGraph G){
     
 
 */
+
+
+
+/*****************2024 判定有无唯一拓扑排序****************************** */
+
+typedef struct {
+    int numVertices,numEdges;
+    char VerticesList[MAXV];
+    int Edge[MaxV][MaxV];
+}MGraph;
+/*int find(int * a){
+    int[]
+}
+int uniquely(MGraph G){
+    int edge_cur[G.numVertices][G.numVertices];
+    for(int i=0;i<G.numVertices;i++){
+        for(int j=0;j<G.numVertices;j++){
+            edge_cur[i][j]=G.Edge[i][j];
+        }
+    }//复制一份领接矩阵，方便删除边
+
+    int count =G.numVertices;
+    for(int i=0;i<G.numVertices;i++){
+        int i=find(edge_cur);
+
+    }
+}*/
+int uniquely(MGraph G){
+    int IN_count[G.numEdges]={0};
+    for(int i=0;i<G.numVertices;i++){
+        for(int j=0;j<numVerticesl;j++){
+            if(G.Edge[j][i]>0)
+                IN_count[i]++;
+        }
+    }//将入读表整出来
+    for(int i=0;i<G.vertices;i++){
+        int j;
+        for(;j<G.numVertices;j++){
+            if(IN_count[j]==0){
+                break;
+            }
+        }
+        if(j==G.vertices){
+            return 0;
+        }
+        IN_count[j]=-1;//完成删除节点
+        for(int i=0;i<G.vertices;i++){
+            if(G.Edge[j][i]>0)
+                IN_count[i]--;
+        }//完成删除边
+    }
+    return 1;
+}
