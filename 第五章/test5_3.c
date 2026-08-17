@@ -544,6 +544,7 @@ String True_answer(BTree * T){
     return "("+True_answer(T->left)+T->data[0]+True_answer(T->right)+")";
 } 
 
+//以上为解答别人问题所写
 
 
 
