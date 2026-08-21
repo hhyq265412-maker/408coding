@@ -113,27 +113,32 @@ int uniquely(MGraph G){
     }
 }*/
 int uniquely(MGraph G){
-    int IN_count[G.numEdges]={0};
+    int IN_count[G.numVertices]={0};
     for(int i=0;i<G.numVertices;i++){
-        for(int j=0;j<numVerticesl;j++){
+        for(int j=0;j<G.numVertices;j++){
             if(G.Edge[j][i]>0)
                 IN_count[i]++;
         }
     }//将入读表整出来
     for(int i=0;i<G.vertices;i++){
         int j;
+        int count=0;
         for(;j<G.numVertices;j++){
             if(IN_count[j]==0){
-                break;
+                count ++;
             }
+            if(count ==1)
+                continue;
+            else
+                return 0;
         }
-        if(j==G.vertices){
+        if(j==G.numVertices){
             return 0;
         }
         IN_count[j]=-1;//完成删除节点
-        for(int i=0;i<G.vertices;i++){
-            if(G.Edge[j][i]>0)
-                IN_count[i]--;
+        for(int m=0;m<G.vertices;m++){
+            if(G.Edge[j][m]>0)
+                IN_count[m]--;
         }//完成删除边
     }
     return 1;

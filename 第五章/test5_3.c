@@ -477,13 +477,11 @@ void Link_leaf(BiTree T){
 bool simmilar_BiTree(BiTree T1,BiTree T2){
     if(T1==NULL&&T2==NULL){
         return true;
-    }else if((!T1->lchild )&& (!T1->rchild)&&(!T2->rchild)&&(!T2->lchild)){
-        return true;
-    }else if(T1->lchild&&t1->lchild&&T2->rchild&&T2->rchild){
-        return simmilar_BiTree(T1->rchild,T2->rchild)&&simmilar_BiTree(T1->lchild,T2->lchild);
-    }else{
+    }
+    if(T1==NULL||T2==NULL){
         return false;
     }
+    simmilar_BiTree(T1->rchild,T2->rchild)&&simmilar_BiTree(T1->lchild,T2->lchild);
 }
 
 /************************2014真题***************************************** */
@@ -493,20 +491,27 @@ typedef struct{
     BiTree * right;
     int weight;
 }BiTree;
-
+//这个结构体错了
+typedef struct Bitree{
+    Bitree*left,*right;
+    int weight;
+}Bitree;
 int WPL(Bitree *  T){
+    if(T==NULL){
+        return 0;
+    }
     BiTree * Q[MaxSize];
     int front =0;
     int rear =0;
     Q[rear++]=T;
-    int satge=1;  //标记层数
+    int stage=1;  //标记层数
     int wpl=0;    //最后的wpl
     int count =1;
     //利用层次遍历
     while(front!=rear){
         int current_account=0;//记录每层的个数
         for(int i=0;i<count;i++){
-            Bitree current = Q[front++]
+            Bitree * current = Q[front++]; 
             if(current->left!=NULL){
                 Q[rear++]=current->left;
                 current_account++;
@@ -519,8 +524,8 @@ int WPL(Bitree *  T){
                 wpl+=(stage-1)*current->weight;//计算节点的路径权值
             }
         }
-        account=current_account;
-        satge++;
+        count=current_account;
+        stage++;
     }
     return wpl;
 }
@@ -545,7 +550,84 @@ String True_answer(BTree * T){
 } 
 
 //以上为解答别人问题所写
+String True_answer(BTree * T, int count ){
+    if(T=NULL){
+        return;
+    }
+    if(T->right==NULL && T->left==NULL){
+        printf("%c",T->data[0]);
+        return ;
+    }
+    if(count>1){
+        printf("(")
+        True_answer(T->left,count+1);
+        printf("%c",T->data);
+        True_answer(T->right,count+1);
+        printf(")");
+    }else{
+        True_answer(T->left,count+1);
+        printf("%c",T-data[0]);
+        True_answer(T->left,count+1);
+    }
+}
 
 
 
+/******************2022判断是不是排序树*************************/
+//主要思想就是中序递归，访问的数据是递增的。
+//整个模块的这个模板要记住
 
+int pre=-999999999; 
+bool  checkBST(SqBiTree T,int i,int & pre){
+    if(T.SqBiTNode[i]==-1||i>T.ElemNum){
+        //边界出现问题因该是》=
+        return true;
+    }
+    if(!checkBST(T,2*i+1,pre)){
+        return false;
+    }
+    if(T.SqBiTNode[i]<=pre){
+        return false;
+    }
+    pre=T.SqBiTNode[i];
+    if(!checkBST(T,2*i+2,pre)){
+        return false;
+    }
+ }
+
+
+//自创如果判断这个中序是逆序那就是中序从右边子树开始对吧
+int pre =  -999999999999
+bool check_merse_BST(SqBiTNode T,int i ,int &pre){
+    if(T.SqBiTNode[i]==-1||i>=T.ElemNum){
+        return true;
+    }
+    if(!check_merse_BST(T,i*2+2,pre)){
+        return false;
+    }
+    if(T.SqBiTNode[i]<=pre){
+        return false;
+    }
+    pre=T.SqBiTNode[i];
+    if(!check_merse_BST(T,i+2+1,pre)){
+        return false;
+    }
+ }
+
+/****************训练题:判断是不是平衡二叉树*******************************/
+int  checkAVL(Bitree T){
+    if(T=NULL){
+        return 0;
+    }
+    
+    int left=checkAVL(T->left);
+    int right=checkAVL(T->right);
+    if(left==-1||right==-1){
+        return -1;
+    }
+    if(abs(left-right)<=1){
+        return max(left+1,right+1);
+    }else{
+        return -1;
+    }
+}
