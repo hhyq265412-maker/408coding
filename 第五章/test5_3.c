@@ -631,3 +631,127 @@ int  checkAVL(Bitree T){
         return -1;
     }
 }
+/*****************训练题，判断一棵树是不是完全二叉树************************************* */
+//我们存储结构是链式结构
+/*我的思路：1：我们先用层次遍历,我们每次遍历的点必须是有左或者左右孩子的，设置一个flag如果出现目标是最后孩子节，若违反返回false*/
+bool check_all_tree(BiTree  T){
+    if(T==NULL){
+        return true;
+    }
+    BiTree Q[ManSize];
+    int front = 0;
+    int rear=0;
+    Q[rear++]=T;
+    bool falg=true;
+
+    while(rear!=front){
+        BiTree cur=Q[front++];
+        if(cur->rchild!=NULL&&cur->lchild==NULL){
+            return false;
+        }//特殊情况
+        if(!flag&&(cur->lchild!=NULL||cur->rchild!=NULL)){
+            return false;
+        }//我们遇到了违规节点;
+        if(flag&&cur->rchild==NULL){
+            flag=false;
+        }
+        //定义flag
+
+        if(cur->lchild!=NULL){
+            Q[rear++]=cur-<lchid;
+        }
+        if(cur->rchild!=NULL){
+            Q[rear++]=cur->rchild;
+        }
+    }
+    return true;
+}
+//好的思路
+bool check_all_tree_simple(BiTree T) {
+    if (T == NULL) return true;
+
+    BiTree Q[MaxSize];
+    int front = 0, rear = 0;
+    
+    Q[rear++] = T; // 根节点入队
+    BiTree cur;
+
+    // 【第一阶段】：连同空节点一起入队，直到遇到第一个空节点
+    while (front < rear) {
+        cur = Q[front++];
+        if (cur == NULL) {
+            break; // 踩到了第一个空档，退出第一阶段
+        }
+        // 不做任何判断，左右孩子（哪怕是 NULL）直接排队进队
+        Q[rear++] = cur->lchild;
+        Q[rear++] = cur->rchild;
+    }
+
+    // 【第二阶段】：检查队列里剩下的是否全为 NULL
+    while (front < rear) {
+        cur = Q[front++];
+        if (cur != NULL) {
+            return false; // 如果空档后面居然还有有效节点，说明不是完全二叉树
+        }
+    }
+
+    return true; // 队列后半段全是 NULL，判定为完全二叉树
+}
+
+/******************训练题：判断存储树是否合规***********************************/
+//前提：我们已知一个数组里面存储这一颗树，判断合不合规
+//1.思路一，直接遍历查看有无父亲节点是违规点
+bool check_Tree(int * a ,int n){
+    for(int i=0;i<n;i++){
+        if(a[n]!=-1&&a[(n-1)/2]==-1){
+            return false
+        }
+    }
+    return true;
+}
+//2.思路二，递归
+bool check_Tree2(int *a ,int n,int len){
+    if(len<=1){
+        return true;
+    }
+    if(n>=len){
+        return true;
+    }
+    bool flag1=check_Tree2(a,n*2+1,len);//判断左子树
+    bool flag2=check_Tree2(a,n*2+2,len);//判断右子树
+
+    bool flag3=true;
+    if(n!=0){
+        if(a[n]!=-1&&a[(n-1)/2]==-1){
+            flag3=false;
+        }
+    }
+    return flag1&&flag2&&flag3;
+
+}
+
+/**************6章DFS实现拓扑排序*********************/
+//主要思想：先DFS遍历，如果等到这个东西出队列就进入数组，最后逆序输出
+#define MaxVertexNum 100 // 最大顶点数
+
+// 1. 边表节点（表示一条弧）
+typedef struct ArcNode {
+    int adjvex;              // 该弧所指向的顶点在数组中的位置（下标）
+    struct ArcNode *nextarc; // 指向下一条弧的指针
+} ArcNode;
+
+// 2. 顶点表节点（表示一个顶点）
+typedef struct VNode {
+    char data;               // 顶点信息（如 'A', 'B' ...）
+    ArcNode *firstarc;       // 指向第一条依附该顶点的弧
+} VNode, AdjList[MaxVertexNum];
+
+// 3. 邻接表图的定义
+typedef struct {
+    AdjList vertices;        // 邻接表
+    int vexnum, arcnum;      // 图的顶点数和弧数
+} ALGraph;
+
+void DFS_to_tuopu(){
+    
+}
