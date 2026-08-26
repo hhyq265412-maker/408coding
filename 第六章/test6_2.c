@@ -143,3 +143,29 @@ int uniquely(MGraph G){
     }
     return 1;
 }
+
+/**************6章DFS实现拓扑排序*********************/
+//主要思想：先DFS遍历，如果等到这个东西出队列就进入数组，最后逆序输出
+#define MaxVertexNum 100 // 最大顶点数
+
+// 1. 边表节点（表示一条弧）
+typedef struct ArcNode {
+    int adjvex;              // 该弧所指向的顶点在数组中的位置（下标）
+    struct ArcNode *nextarc; // 指向下一条弧的指针
+} ArcNode;
+
+// 2. 顶点表节点（表示一个顶点）
+typedef struct VNode {
+    char data;               // 顶点信息（如 'A', 'B' ...）
+    ArcNode *firstarc;       // 指向第一条依附该顶点的弧
+} VNode, AdjList[MaxVertexNum];
+
+// 3. 邻接表图的定义
+typedef struct {
+    AdjList vertices;        // 邻接表
+    int vexnum, arcnum;      // 图的顶点数和弧数
+} ALGraph;
+
+void DFS_to_tuopu(){
+    
+}
