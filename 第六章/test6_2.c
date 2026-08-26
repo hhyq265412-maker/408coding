@@ -165,7 +165,32 @@ typedef struct {
     AdjList vertices;        // 邻接表
     int vexnum, arcnum;      // 图的顶点数和弧数
 } ALGraph;
-
-void DFS_to_tuopu(){
+int S=0;
+char answer[MaxINT]={ };
+void DFS( ALGraph G,int i){
+    visit[i]=true;
+    ArcNode *p;
+    for(p=AdjList[i].firstarc;p->nextarc!=NULL;p=p->nextarc){
+    //这里出现错误,p!=NULL才对，防止p空指针那啥
+        if(visit[p->adjvex]==false){
+            DFS(G,p->adjvex);
+        }
+    }
+    answer[S++]=G.vertices[i].data;
+}
+int main(){
+    ALGraph G;
+    for(int i=0;i<G.vexnum;i++){
+        int i=find_in(G);
+        if(visit[i]!=false){
+            DFS(G,i);
+        }
+    }
+    if(S<G.vexnum){
+        printf("wujieguo");
+    }
+    for(int i=S;i>=0;i--){
+        printf(" %c ",answer[i]);
+    }
     
 }
